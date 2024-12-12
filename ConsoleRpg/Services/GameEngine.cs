@@ -42,7 +42,8 @@ public class GameEngine
         while (true)
         {
             _outputManager.AddLogEntry("1. Attack");
-            _outputManager.AddLogEntry("2. Quit");
+            _outputManager.AddLogEntry("2. Manage Characters");
+            _outputManager.AddLogEntry("3. Quit");
             var input = _outputManager.GetUserInput("Choose an action:");
 
 
@@ -52,6 +53,9 @@ public class GameEngine
                     AttackCharacter();
                     break;
                 case "2":
+                    Console.WriteLine("manage characters");
+                    break;
+                case "3":
                     _outputManager.AddLogEntry("Exiting game...");
                     Environment.Exit(0);
                     break;
@@ -93,4 +97,46 @@ public class GameEngine
         _goblin = _context.Monsters.OfType<Goblin>().FirstOrDefault();
     }
 
+    private void ManageCharacters()
+    {
+        _outputManager.AddLogEntry("List created characters");
+        _outputManager.AddLogEntry("Create new character");
+        _outputManager.AddLogEntry("Edit created characters");
+        _outputManager.AddLogEntry("Add ability to created character");
+        _outputManager.AddLogEntry("Display character abilities");
+
+        var input = _outputManager.GetUserInput("Choose an action:");
+
+        switch (input)
+        {
+            case "1":
+                DisplayCharacters();
+                break;
+            case "2":
+                SearchCharacters();
+                break;
+            case "3":
+                AddCharacter();
+                break;
+            case "4":
+                EditCharacter();
+                break;
+            case "5":
+                AddAbility();
+                break;
+            case "6":
+                break;
+            default:
+                _outputManager.AddLogEntry("Invalid selection. Please choose a valid action.");
+                break;
+        }
+    }
+
+    private void DisplayCharacters()
+    {
+        foreach (Player player in _context.Players)
+        {
+            Console.WriteLine(player);
+        }
+    }
 }
